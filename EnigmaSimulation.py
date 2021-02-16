@@ -12,8 +12,6 @@ def encodeMessage(inputMessage):
     rotor4 = "ESOVPZJAYQUIRHXLNFTGKDCMWB"
     rotor5 = "VZBRGITYUPSDNHLXAWMJQOFECK"
 
-
-
     #Original rotor notch configurations
     rotor1Notch = "Q"
     rotor2Notch = "E"
