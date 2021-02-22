@@ -59,7 +59,6 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
 
             #If the current letter is the notch letter activate trigger and rotate rotor 1 place
             if rotorCLetter == rotorCNotch:
-                #rotorCTrigger = True
                 rotorBLetter = (alphabet.index(rotorBLetter))
                 indexB = (rotorBLetter + 1) % 26
                 rotorBLetter = alphabet[indexB]
@@ -69,16 +68,17 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
 
 
             if rotorBLetter == rotorBNotch:
-
                 rotorALetter = (alphabet.index(rotorALetter))
                 indexA = (rotorALetter + 1) % 26
                 rotorALetter = alphabet[indexA]
-
 
             if rotorALetter == rotorANotch:
                 rotorALetter = (alphabet.index(rotorALetter))
                 indexA = (rotorALetter + 1) % 26
                 rotorALetter = alphabet[indexA]
+
+ #           if rotorALetter != rotorANotch:
+  #              rotorALetter = alphabet[indexA - 1]
 
 
             print("A=", rotorALetter, "B=", rotorBLetter,"C=", rotorCLetter)
