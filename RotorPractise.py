@@ -11,7 +11,7 @@
 rotors = ("I", "II", "III")
 reflector = "UKW-B"
 ringSettings = "AAA"  #setting used for caesar shift
-ringPositions = "DEF"  #starting letter of each rotor
+ringPositions = "AAA"  #starting letter of each rotor
 plugboard = "AT BS DE FM IR KN LZ OW PV XY"
 
 

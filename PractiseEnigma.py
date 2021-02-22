@@ -30,11 +30,12 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
     rotorC = rotorSelection[2]
 
     #Create a dictionary containing the rotor number and it's notch letter
-    rotorNotchDict = {"1":"Q", "2":"E", "3":"V", "4":"J", "5":"Z"}
+    notchDict = {"1":"Q", "2":"E", "3":"V", "4":"J", "5":"Z"}
 
-    rotorANotch = rotorNotchDict.get(rotorSelection[0])
-    rotorBNotch = rotorNotchDict.get(rotorSelection[1])
-    rotorCNotch = rotorNotchDict.get(rotorSelection[2])
+    rotorANotch = notchDict.get(rotorSelection[0])
+    rotorBNotch = notchDict.get(rotorSelection[1])
+    rotorCNotch = notchDict.get(rotorSelection[2])
+
 
     rotorALetter = rotorStartPos[0]
     rotorBLetter = rotorStartPos[1]
@@ -51,7 +52,36 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
     plugboardSettingsDict = dict(plugboardSettingsList)
 
 
+    for letter in inputMessage:
+        letter = letter.upper()
 
+        if letter in alphabet:
+
+            #If the current letter is the notch letter activate trigger and rotate rotor 1 place
+            if rotorCLetter == rotorCNotch:
+                #rotorCTrigger = True
+                rotorBLetter = (alphabet.index(rotorBLetter))
+                indexB = (rotorBLetter + 1) % 26
+                rotorBLetter = alphabet[indexB]
+            rotorCLetter = (alphabet.index(rotorCLetter))
+            indexC = (rotorCLetter + 1) % 26
+            rotorCLetter = alphabet[indexC]
+
+
+            if rotorBLetter == rotorBNotch:
+
+                rotorALetter = (alphabet.index(rotorALetter))
+                indexA = (rotorALetter + 1) % 26
+                rotorALetter = alphabet[indexA]
+
+
+            if rotorALetter == rotorANotch:
+                rotorALetter = (alphabet.index(rotorALetter))
+                indexA = (rotorALetter + 1) % 26
+                rotorALetter = alphabet[indexA]
+
+
+            print("A=", rotorALetter, "B=", rotorBLetter,"C=", rotorCLetter)
 
 
 
@@ -62,7 +92,9 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
 inputMessage = input("Message you wish to encrypt - ")
 rotorSelection = input("Please select the rotors you would like at positions ABC - ")
 rotorStartPos = input("Please list the inital starting positions in order of rotor A, B & C - ")
+rotorStartPos = rotorStartPos.upper()
 plugboardSettings = input("Please list your plugboard pairs settings seperated by a space. E.g A=B,C=D,E=F - ")
+
 
 #How to print a specific pair
 #print(plugboardSettings.split(" ")[0])
