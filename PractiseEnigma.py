@@ -87,9 +87,6 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
 
     return encryptedMessage
 
-print("TEST")
-
-
 
 inputMessage = input("Message you wish to encrypt - ")
 rotorSelection = input("Please select the rotors you would like at positions ABC - ")
