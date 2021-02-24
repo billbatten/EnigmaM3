@@ -36,7 +36,6 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
     rotorBNotch = notchDict.get(rotorSelection[1])
     rotorCNotch = notchDict.get(rotorSelection[2])
 
-
     rotorALetter = rotorStartPos[0]
     rotorBLetter = rotorStartPos[1]
     rotorCLetter = rotorStartPos[2]
@@ -50,35 +49,54 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
     #Put user plugboard settings into a list then into a dictionary
     plugboardSettingsList = plugboardSettings.split()
     plugboardSettingsDict = dict(plugboardSettingsList)
-
-
+    counter = 0
+    rotorATrigger = True
     for letter in inputMessage:
         letter = letter.upper()
-
         if letter in alphabet:
+
+            if rotorBLetter == rotorBNotch and rotorATrigger == True:
+                rotorATrigger = False
+                counter = 0
+                rotorALetter = (alphabet.index(rotorALetter))
+                indexA = (rotorALetter + 1) % 26
+                rotorALetter = alphabet[indexA]
 
             #If the current letter is the notch letter activate trigger and rotate rotor 1 place
             if rotorCLetter == rotorCNotch:
                 rotorBLetter = (alphabet.index(rotorBLetter))
                 indexB = (rotorBLetter + 1) % 26
                 rotorBLetter = alphabet[indexB]
+
             rotorCLetter = (alphabet.index(rotorCLetter))
             indexC = (rotorCLetter + 1) % 26
             rotorCLetter = alphabet[indexC]
 
+            counter += 1
 
-            if rotorBLetter == rotorBNotch:
-                rotorALetter = (alphabet.index(rotorALetter))
-                indexA = (rotorALetter + 1) % 26
-                rotorALetter = alphabet[indexA]
+            if counter > 25:
+                rotorATrigger = True
 
-            if rotorALetter == rotorANotch:
-                rotorALetter = (alphabet.index(rotorALetter))
-                indexA = (rotorALetter + 1) % 26
-                rotorALetter = alphabet[indexA]
 
- #           if rotorALetter != rotorANotch:
-  #              rotorALetter = alphabet[indexA - 1]
+
+
+
+
+            # for rotorALetter in rotorA:
+            #
+            #     for rotorBLetter in rotorB:
+            #
+            #          for rotorCLetter in alphabet:
+            #              rotorCLetter = (alphabet.index(rotorBLetter))
+            #              indexC = (rotorBLetter + 1) % 26
+            #              rotorCLetter = alphabet[indexC]
+            #              print("A = ", rotorALetter,"B = ", rotorBLetter,"C = ", rotorCLetter)
+            #             #increment rotor C
+            #             #END C LOOP
+            #         #Increment Rotor B
+            #         #END B LOOP
+            #     #Increment rotor A
+            #     #END A LOOP
 
 
             print("A=", rotorALetter, "B=", rotorBLetter,"C=", rotorCLetter)
