@@ -1,9 +1,16 @@
-
+#In order to encrypt/decrypt a message each letter must past through each component in the machine
+#in a specific order
+#Keyboard -> plugboard -> rotor 3 -> rotor 2 -> rotor 1 -> reflector -> rotor 1 -> rotor 2 -> rotor 3
+#plugboard -> lampboard
 
 def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
 
     #English alphabet
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    rotorARingSetting = "A"
+    rotorBRingSetting = "A"
+    rotorCRingSetting = "A"
 
     #Original rotor wiring configurations
              #ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -18,7 +25,8 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
     rotor5 = "VZBRGITYUPSDNHLXAWMJQOFECK"
 
     #Retrieves the wiring configuration for the user selected rotor
-    rotorConfiqDict = {"1":"EKMFLGDQVZNTOWYHXUSPAIBRCJ", "2":"AJDKSIRUXBLHWTMCQGZNPYFVOE", "3":"BDFHJLCPRTXVZNYEIWGAKMUSQO"}
+    rotorConfiqDict = {"1":"EKMFLGDQVZNTOWYHXUSPAIBRCJ", "2":"AJDKSIRUXBLHWTMCQGZNPYFVOE", "3":"BDFHJLCPRTXVZNYEIWGAKMUSQO",
+                       "4":"ESOVPZJAYQUIRHXLNFTGKDCMWB", "5":"VZBRGITYUPSDNHLXAWMJQOFECK"}
 
     #Original rotor notch configurations
     rotor1Notch = "Q"
@@ -37,9 +45,10 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
     rotorB = rotorSelection[1]
     rotorC = rotorSelection[2]
 
+    #Variable to retrieve the configuration string for the user selected rotor
     rotorAConfig = rotorConfiqDict.get(rotorSelection[0])
-    print("rotorAConfig = ",rotorAConfig)
-
+    rotorBConfig = rotorConfiqDict.get(rotorSelection[1])
+    rotorCConfig = rotorConfiqDict.get(rotorSelection[2])
 
     #Create a dictionary containing the rotor number and it's notch letter
     notchDict = {"1":"Q", "2":"E", "3":"V", "4":"J", "5":"Z"}
@@ -48,12 +57,15 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
     rotorBNotch = notchDict.get(rotorSelection[1])
     rotorCNotch = notchDict.get(rotorSelection[2])
 
+    #Variable to store the user selected starting letter=
     rotorALetter = rotorStartPos[0]
     rotorBLetter = rotorStartPos[1]
     rotorCLetter = rotorStartPos[2]
 
+    #Empty string that encrypted letter will be added to
     encryptedMessage = ""
     encryptedLetter = ""
+
     #Make user input message and plugboard pairs uppercase
     inputMessage.upper()
     plugboardSettings.upper()
@@ -62,16 +74,18 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
     plugboardSettingsList = plugboardSettings.split()
     plugboardSettingsDict = dict(plugboardSettingsList)
 
-    print("PLUGBOARD KEYS = ",plugboardSettingsDict.keys())
 
 
+    print("PLUGBOARD KEYS = ", plugboardSettingsDict)
+
+    #----------------------------------------------------------------------#
+    #Rotating of the rotors
     counter = 0
     rotorATrigger = True
     for letter in inputMessage:
         letter = letter.upper()
         encryptedLetter = letter
         if letter in alphabet:
-
             if rotorBLetter == rotorBNotch and rotorATrigger == True:
                 rotorATrigger = False
                 counter = 0
@@ -93,34 +107,16 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
 
             if counter > 25:
                 rotorATrigger = True
+    #-------------------------------------------------------#
+
+            offsetA = alphabet.index(rotorALetter)
+            offsetB = alphabet.index(rotorBLetter)
+            offsetC = alphabet.index(rotorCLetter)
+
 
             #Encryption for wheel 3
             currentLetter = encryptedLetter
             alphabetIndex = alphabet.index(currentLetter)
-            print("Alphabet index = ", alphabetIndex)
-
-            #print("wheel3ConfiqLetter = ", wheel3ConfiqLetter)
-
-
-
-
-
-            # for rotorALetter in rotorA:
-            #
-            #     for rotorBLetter in rotorB:
-            #
-            #          for rotorCLetter in alphabet:
-            #              rotorCLetter = (alphabet.index(rotorBLetter))
-            #              indexC = (rotorBLetter + 1) % 26
-            #              rotorCLetter = alphabet[indexC]
-            #              print("A = ", rotorALetter,"B = ", rotorBLetter,"C = ", rotorCLetter)
-            #             #increment rotor C
-            #             #END C LOOP
-            #         #Increment Rotor B
-            #         #END B LOOP
-            #     #Increment rotor A
-            #     #END A LOOP
-
 
             print("A=", rotorALetter, "B=", rotorBLetter,"C=", rotorCLetter)
 
@@ -129,15 +125,25 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
     return encryptedMessage
 
 
+
+#USER INPUTS
 inputMessage = input("Message you wish to encrypt - ")
 rotorSelection = input("Please select the rotors you would like at positions ABC - ")
-rotorStartPos = input("Please list the inital starting positions in order of rotor A, B & C - ")
+rotorStartPos = input("Please list the initial starting positions in order of rotor A, B & C - ")
 rotorStartPos = rotorStartPos.upper()
-plugboardSettings = input("Please list your plugboard pairs settings seperated by a space. E.g A=B,C=D,E=F - ")
+plugboardSettings = input("Please list your plugboard pairs settings separated by a space. E.g A=B,C=D,E=F - ")
 
-
-#How to print a specific pair
-#print(plugboardSettings.split(" ")[0])
-
+#output = ""
+# for pairs in plugboardSettings:
+#     seen = ""
+#     for char in pairs:
+#         if char not in seen:
+#             seen += char
+#         if char in seen:
+#             error = char
+#             print("You have allocated ", error ,"more than once")
+#             break
+#     output += seen
+#print("PLUGS ", output)
 
 encryptedMessage = encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings)
