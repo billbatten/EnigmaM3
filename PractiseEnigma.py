@@ -145,7 +145,7 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
         alphabetBShift = alphabet[numberOfBTurns:26] + alphabet[:numberOfBTurns]
         alphabetCShift = alphabet[numberOfCTurns:26] + alphabet[:numberOfCTurns]
 
-        #if rotorCLetter == rotorCNotch:
+
 
 
         rotorAConfig = tempA[numberOfATurns:26] + tempA[:numberOfATurns]
