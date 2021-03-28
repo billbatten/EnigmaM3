@@ -276,7 +276,7 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
 
 #USER INPUTS
 #inputMessage = input("Message you wish to encrypt - ")
-inputMessage = "abcdefghijklmnopqrstuv"
+inputMessage = "abcdefghijklmnopqrstuvwxyz"
 #inputMessage = "abcdefghijklmnopq"
 #inputMessage = "a"
 #rotorSelection = input("Please select the rotors you would like at positions ABC - ")
