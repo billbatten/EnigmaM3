@@ -115,6 +115,10 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
 
         #Loops through each letter in inputMessage and swaps it with the plugboard allocated letter
 
+
+        print("---------------START---------------\n")
+        print("BEFORE ENTERING PLUGBOARD ", encryptedLetter)
+
         if encryptedLetter not in updatedPlugboardSettingsDict:
             encryptedLetter = encryptedLetter
         else:
@@ -128,7 +132,7 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
         numberOfCTurns = alphabet.index(rotorCLetter)
         print("A turns = ", numberOfATurns, "//",
               "B turns = ", numberOfBTurns, "//",
-              "C turns = ", numberOfCTurns, "//\n",)
+              "C turns = ", numberOfCTurns, "\n")
 
 
 
@@ -249,6 +253,7 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
         print("Encrypted message = ", encryptedMessage, "\n")
 
         print("A=", rotorALetter, "B=", rotorBLetter, "C=", rotorCLetter)
+        print("\n----------------END-----------------")
 
     return encryptedMessage
 
