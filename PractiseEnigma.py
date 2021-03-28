@@ -121,14 +121,14 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
             encryptedLetter = updatedPlugboardSettingsDict[encryptedLetter]
 
 
-        print("AFTER ENTERING PLUGBOARD ", encryptedLetter)
+        print("AFTER ENTERING PLUGBOARD ", encryptedLetter, "\n")
 
         numberOfATurns = alphabet.index(rotorALetter)
-        print(numberOfATurns)
         numberOfBTurns = alphabet.index(rotorBLetter)
-        print(numberOfBTurns)
         numberOfCTurns = alphabet.index(rotorCLetter)
-        print(numberOfCTurns)
+        print("A turns = ", numberOfATurns, "//",
+              "B turns = ", numberOfBTurns, "//",
+              "C turns = ", numberOfCTurns, "//\n",)
 
 
 
@@ -170,7 +170,7 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
         #ROTOR C ENCRYPTION
         index = alphabetCShift.index(encryptedLetter)
         scrambledLetter = rotorCConfig[(index + numberOfCTurns) % 26]
-        print("Scrambled Letter = ", scrambledLetter)
+        print("Rotor C encrypted letter = ", scrambledLetter, "\n")
         index = alphabet.index(scrambledLetter)
         encryptedLetter = alphabet[(index - numberOfCTurns + 26) % 26]
         rotorBEntryPoint = alphabetBShift[(index - numberOfCTurns + 26) % 26]
@@ -180,42 +180,40 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
         #ROTOR B ENCRYPTION
         index = alphabetBShift.index(encryptedLetter)
         scrambledLetter = rotorBConfig[(index + numberOfBTurns) % 26]
-        print("Scrambled Letter = ", scrambledLetter)
+        print("Rotor B encrypted letter = ", scrambledLetter, "\n")
         index = alphabet.index(scrambledLetter)
         encryptedLetter = alphabet[(index - numberOfBTurns + 26) % 26]
-        print("ROTOR A entry point = ", encryptedLetter)
+        print("Rotor A entry point = ", encryptedLetter)
 
 
         #ROTOR A ENCRYPTION
         index = alphabetAShift.index(encryptedLetter)
         scrambledLetter = rotorAConfig[(index + numberOfATurns) % 26]
-        print("Scrambled Letter = ", scrambledLetter)
+        print("Rotor A encrypted letter = ", scrambledLetter, "\n")
         index = alphabet.index(scrambledLetter)
         encryptedLetter = alphabet[(index - numberOfATurns + 26) % 26]
-
 
 
         #REFLECTOR ENCRYPTION
         print("Reflector entry point = ", encryptedLetter)
         if encryptedLetter in UKWB:
             encryptedLetter = UKWB[encryptedLetter]
-            print("\nREFLECTOR ", encryptedLetter, "\n")
-        print("Reflector exit point ", encryptedLetter)
+        print("Reflector exit point = ", encryptedLetter, "\n")
 
         index = alphabetAShift.index(encryptedLetter)
         rotorAEntry2 = alphabetAShift[index + numberOfATurns]
         #print("Rotor A entry point ", alphabetAShift[index + numberOfATurns])
-        print("Rotor A entry point ", rotorAEntry2)
+        print("Rotor A entry point = ", rotorAEntry2)
 
         #ROTOR A ENCRYPTION
         index = rotorAConfig.index(encryptedLetter) #13
         scrambledLetter = alphabetAShift[(index + numberOfATurns) % 26]  #alphabetAShift[13] = N
-        print("Scrambled LETTER === ", scrambledLetter)
+        print("Rotor A encrypted letter = ", scrambledLetter, "\n")
         index = rotorAConfig.index(scrambledLetter) #10
         encryptedLetter = rotorAConfig[(index - numberOfATurns + 26) % 26] #N
         index = alphabetBShift.index(encryptedLetter) #12
         rotorBEntry2 = alphabetBShift[index + numberOfBTurns]
-        print("Rotor B entry point ", alphabetBShift[index + numberOfBTurns])
+        print("Rotor B entry point = ", alphabetBShift[index + numberOfBTurns])
         #print("Rotor B entry point ", rotorBEntry2) #O
         encryptedLetter = rotorBEntry2
 
@@ -223,21 +221,21 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
         #ROTOR B ENCRYPTION
         index = rotorBConfig.index(encryptedLetter) #18 #23
         scrambledLetter = alphabetBShift[(index + numberOfBTurns) % 26]
-        print(print("Scrambled LETTER = ", scrambledLetter))
+        print("Rotor B encrypted letter = ", scrambledLetter, "\n")
         index = rotorBConfig.index(scrambledLetter)
         encryptedLetter = rotorBConfig[(index - numberOfBTurns + 26) % 26]
         index = alphabetBShift.index(encryptedLetter)
         encryptedLetter = alphabetCShift[index]
-        print("Rotor C entry point ", encryptedLetter)
+        print("Rotor C entry point = ", encryptedLetter)
 
 
         #ROTOR C ENCRYPTION
         index = rotorCConfig.index(encryptedLetter)
         scrambledLetter = alphabetCShift[(index + numberOfCTurns) % 26]
-        print("Scrambled LETTER!! = ", scrambledLetter)
+        print("Rotor C encrypted letter = ", scrambledLetter, "\n")
         #index = rotorCConfig.index(scrambledLetter)
         encryptedLetter = alphabetCShift[(index - numberOfCTurns + 26) % 26]
-        print("Letter passed to plugboard ", encryptedLetter)
+        print("Letter passed to plugboard = ", encryptedLetter)
 
 
         if encryptedLetter not in updatedPlugboardSettingsDict:
@@ -245,10 +243,10 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
         else:
             encryptedLetter = updatedPlugboardSettingsDict[encryptedLetter]
 
-        print("LAMPBOARD OUTPUT = ", encryptedLetter)
+        print("Lampboard output = ", encryptedLetter, "\n")
 
         encryptedMessage = encryptedMessage + encryptedLetter
-        print(encryptedMessage, "\n")
+        print("Encrypted message = ", encryptedMessage, "\n")
 
         print("A=", rotorALetter, "B=", rotorBLetter, "C=", rotorCLetter)
 
@@ -258,7 +256,8 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings):
 
 #USER INPUTS
 #inputMessage = input("Message you wish to encrypt - ")
-inputMessage = "abcdefghijklmnopqrstuv"
+#inputMessage = "abcdefghijklmnopqrstuv"
+inputMessage = "abcdefghijklmnopq"
 #inputMessage = "a"
 #rotorSelection = input("Please select the rotors you would like at positions ABC - ")
 rotorSelection = "123"
