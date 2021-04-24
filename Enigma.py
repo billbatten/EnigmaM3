@@ -5,6 +5,9 @@ Keyboard -> plugboard -> rotor 3 -> rotor 2 -> rotor 1 -> reflector -> rotor 1 -
 plugboard -> lampboard
 """
 
+
+
+
 def alphabetRotation(startLetter):
     #THIS FUNCTION OFFSETS THE ALPHABET TO MATCH THE THE STARTING LETTER
 
@@ -245,6 +248,7 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, refl
         print("A=", rotorALetter, "B=", rotorBLetter, "C=", rotorCLetter)
         print("\n----------------END-----------------")
 
+
     return encryptedMessage
 
 #USER INPUTS
@@ -255,11 +259,14 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, refl
 #plugboardSettings = input("Please list your plugboard pairs settings separated by a space. E.g A=B,C=D,E=F - ")
 
 #USER INPUTS
-inputMessage = "IZHAVQVOV"
-rotorSelection = "253"
-rotorStartPos = "BZT"
-reflectorSelection = "B"
-plugboardSettings = "AS BD CZ UI FG OQ XY"
-ringSetting = "CQR"
+# inputMessage = "IZHAVQVOV"
+# #inputMessage = printtext()
+# rotorSelection = "253"
+# rotorStartPos = "BZT"
+# reflectorSelection = "B"
+# plugboardSettings = "AS BD CZ UI FG OQ XY"
+# ringSetting = "CQR"
 
-encryptedMessage = encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, reflectorSelection, ringSetting)
+
+
+#encryptedMessage = encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, reflectorSelection, ringSetting)

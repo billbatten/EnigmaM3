@@ -1,132 +1,155 @@
-#.pack()
-from Enigma import *
+import Enigma
 import tkinter as tk
 from tkinter import *
+import sys
+from PIL import ImageTk, Image
 
-
-
-HEIGHT = 950
-WIDTH = 1800
-
-root = tk.Tk() #Fits all the GUI in
+root = tk.Tk()
 root.attributes('-fullscreen', True)
+root.configure(bg='#404040')
 
-canvas = tk.Canvas(root, bg='#333333', highlightthickness=0)
-canvas.pack(fill=tk.BOTH, expand=True)
 
+def encrypt():
+    inputMessage = plain_text.get()
+    var1 = rotorSelection(self=True)
+    rotorString = var1[0]
+    reflector = var1[1]
+    rotorStartPos = startLetter()
+    rotorRingSetting = ringSetting()
+    encryptedMessage = Enigma.encrypt(inputMessage, rotorString, rotorStartPos, "AC DS", reflector, rotorRingSetting)
+    inputTextLabel.config(text=encryptedMessage)
+    print(rotorStartPos)
+    return encryptedMessage
+
+def rotorSelection(self):
+
+    rotor1 = str(clicked1.get())
+    rotor2 = str(clicked2.get())
+    rotor3 = str(clicked3.get())
+    rotorPos = (rotor1+rotor2+rotor3)
+    reflector = str(clickedRef.get())
+    if len(rotorPos) >= 3:
+        finalRotorPosition = rotorPos
+        return finalRotorPosition, reflector
+
+def startLetter():
+    rotor1 = str(clicked4.get())
+    rotor2 = str(clicked5.get())
+    rotor3 = str(clicked6.get())
+    startString = (rotor1+rotor2+rotor3)
+    if len(startString) >= 3:
+        rotorStartPos = startString
+        return rotorStartPos
+
+def ringSetting():
+    rotor1 = str(clicked7.get())
+    rotor2 = str(clicked8.get())
+    rotor3 = str(clicked9.get())
+    ringString = (rotor1+rotor2+rotor3)
+    if len(ringString) >= 3:
+        ringSetting = ringString
+        return ringSetting
+
+
+blackBackround = ImageTk.PhotoImage(Image.open("backround.jpg"))
+woodBackround = ImageTk.PhotoImage(Image.open("woodBackround.jpg"))
+paperBackround = ImageTk.PhotoImage(Image.open("paper.jfif"))
 
 #FRAME CREATION
+outterFrame = tk.Frame(root)
+outterFrame.place(relx=0.025, rely=0.0, relwidth=0.45, relheight=1)
+label = Label(outterFrame, image=woodBackround)
+label.place(x=0, y=0, relwidth=1, relheight=1)
+
 rotorFrame = tk.Frame(root, bg='gray')
-rotorFrame.place(relx=0.3, rely=0.05, relwidth=0.4, relheight=0.3)
+rotorFrame.place(relx=0.05, rely=0.1, relwidth=0.4, relheight=0.35)
 
-keyboardFrame = tk.Frame(root, bg='white')
-keyboardFrame.place(relx=0.3, rely=0.36, relwidth=0.4, relheight=0.3)
+label = Label(rotorFrame, image=blackBackround)
+label.place(x=0, y=0, relwidth=1, relheight=1)
 
-plugboardFrame = tk.Frame(root, bg='gray')
-plugboardFrame.place(relx=0.3, rely=0.67, relwidth=0.4, relheight=0.3)
+reflectorLabel = Label(rotorFrame, text="Reflector" ,bg="white")
+reflectorLabel.place(relx=0.05, rely=0.1, relwidth=0.15, relheight=0.05)
+rotor1Label = Label(rotorFrame, text="Rotor 1" ,bg="white")
+rotor1Label.place(relx=0.3, rely=0.1, relwidth=0.1, relheight=0.05)
+rotor2Label = Label(rotorFrame, text="Rotor 2" ,bg="white")
+rotor2Label.place(relx=0.5, rely=0.1, relwidth=0.1, relheight=0.05)
+rotor3Label = Label(rotorFrame, text="Rotor 3" ,bg="white")
+rotor3Label.place(relx=0.7, rely=0.1, relwidth=0.1, relheight=0.05)
 
+rotor1LetterLabel = Label(rotorFrame, text="Start Letter" ,bg="white")
+rotor1LetterLabel.place(relx=0.3, rely=0.4, relwidth=0.1, relheight=0.05)
+rotor2LetterLabel = Label(rotorFrame, text="Start Letter" ,bg="white")
+rotor2LetterLabel.place(relx=0.5, rely=0.4, relwidth=0.1, relheight=0.05)
+rotor3LetterLabel = Label(rotorFrame, text="Start Letter" ,bg="white")
+rotor3LetterLabel.place(relx=0.7, rely=0.4, relwidth=0.1, relheight=0.05)
 
-#ROTOR FRAME
+rotor1RingSetting = Label(rotorFrame, text="Ring Setting" ,bg="white")
+rotor1RingSetting.place(relx=0.3, rely=0.7, relwidth=0.1, relheight=0.05)
+rotor2RingSetting = Label(rotorFrame, text="Ring Setting" ,bg="white")
+rotor2RingSetting.place(relx=0.5, rely=0.7, relwidth=0.1, relheight=0.05)
+rotor3RingSetting = Label(rotorFrame, text="Ring Setting" ,bg="white")
+rotor3RingSetting.place(relx=0.7, rely=0.7, relwidth=0.1, relheight=0.05)
 
+title = Label(outterFrame, text="ENIGMA M3", bg='gray', font=("Times", 40))
+title.place(relx=0.25, rely=0.025, relwidth=0.45, relheight=0.05)
+plain_text = Entry(root)
+plain_text.pack(pady=20)
 
+options = ["1", "2", "3", "4", "5"]
+alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
-
-#TOP KEYBOARD ROW
-
-letterQ = tk.Button(keyboardFrame,text='Q', borderwidth=2, bg='#808080')
-letterQ.place(relx=0.07, rely=0.12, relwidth=0.07, relheight=0.17)
-
-letterW = tk.Button(keyboardFrame, text='W', borderwidth=2, bg='#808080')
-letterW.place(relx=0.15, rely=0.12, relwidth=0.07, relheight=0.17)
-
-letterE = tk.Button(keyboardFrame, text='E', borderwidth=2, bg='#808080')
-letterE.place(relx=0.23, rely=0.12, relwidth=0.07, relheight=0.17)
-
-letterR = tk.Button(keyboardFrame, text='R', borderwidth=2, bg='#808080')
-letterR.place(relx=0.31, rely=0.12, relwidth=0.07, relheight=0.17)
-
-letterT = tk.Button(keyboardFrame, text='T', borderwidth=2, bg='#808080')
-letterT.place(relx=0.39, rely=0.12, relwidth=0.07, relheight=0.17)
-
-letterY = tk.Button(keyboardFrame, text='Y', borderwidth=2, bg='#808080')
-letterY.place(relx=0.47, rely=0.12, relwidth=0.07, relheight=0.17)
-
-letterU = tk.Button(keyboardFrame, text='U', borderwidth=2, bg='#808080')
-letterU.place(relx=0.55, rely=0.12, relwidth=0.07, relheight=0.17)
-
-letterI = tk.Button(keyboardFrame, text='I', borderwidth=2, bg='#808080')
-letterI.place(relx=0.63, rely=0.12, relwidth=0.07, relheight=0.17)
-
-letterO = tk.Button(keyboardFrame, text='O', borderwidth=2, bg='#808080')
-letterO.place(relx=0.71, rely=0.12, relwidth=0.07, relheight=0.17)
-
-letterP = tk.Button(keyboardFrame, text='P', borderwidth=2, bg='#808080')
-letterP.place(relx=0.79, rely=0.12, relwidth=0.07, relheight=0.17)
-
-#MIDDLE KEYBOARD ROW
-
-letterA = tk.Button(keyboardFrame, text='A', borderwidth=2, bg='#808080')
-letterA.place(relx=0.13, rely=0.37, relwidth=0.07, relheight=0.17)
-
-letterS = tk.Button(keyboardFrame, text='S', borderwidth=2, bg='#808080')
-letterS.place(relx=0.21, rely=0.37, relwidth=0.07, relheight=0.17)
-
-letterD = tk.Button(keyboardFrame, text='D', borderwidth=2, bg='#808080')
-letterD.place(relx=0.29, rely=0.37, relwidth=0.07, relheight=0.17)
-
-letterF = tk.Button(keyboardFrame, text='F', borderwidth=2, bg='#808080')
-letterF.place(relx=0.37, rely=0.37, relwidth=0.07, relheight=0.17)
-
-letterG = tk.Button(keyboardFrame, text='G', borderwidth=2, bg='#808080')
-letterG.place(relx=0.45, rely=0.37, relwidth=0.07, relheight=0.17)
-
-letterH = tk.Button(keyboardFrame, text='H', borderwidth=2, bg='#808080')
-letterH.place(relx=0.53, rely=0.37, relwidth=0.07, relheight=0.17)
-
-letterJ = tk.Button(keyboardFrame, text='J', borderwidth=2, bg='#808080')
-letterJ.place(relx=0.61, rely=0.37, relwidth=0.07, relheight=0.17)
-
-letterK = tk.Button(keyboardFrame, text='K', borderwidth=2, bg='#808080')
-letterK.place(relx=0.69, rely=0.37, relwidth=0.07, relheight=0.17)
-
-letterL = tk.Button(keyboardFrame, text='L', borderwidth=2, bg='#808080')
-letterL.place(relx=0.77, rely=0.37, relwidth=0.07, relheight=0.17)
+clicked1 = StringVar()
+clicked2 = StringVar()
+clicked3 = StringVar()
+clickedRef = StringVar()
 
 
-#BOTTOM KEYBOARD ROW
+#REFLECTOR DROPDOWN
+rotorRef = OptionMenu(rotorFrame, clickedRef, "B", "C", command=rotorSelection)
+rotorRef.place(relx=0.05, rely=0.16, relwidth=0.15, relheight=0.1)
 
-letterZ = tk.Button(keyboardFrame, text='Z', borderwidth=2, bg='#808080')
-letterZ.place(relx=0.20, rely=0.62, relwidth=0.07, relheight=0.17)
+#ROTOR DROPDOWNS
+rotor1 = OptionMenu(rotorFrame, clicked1, *options, command=rotorSelection)
+rotor1.place(relx=0.3, rely=0.16, relwidth=0.1, relheight=0.1)
+rotor2 = OptionMenu(rotorFrame, clicked2, *options, command=rotorSelection)
+rotor2.place(relx=0.5, rely=0.16, relwidth=0.1, relheight=0.1)
+rotor3 = OptionMenu(rotorFrame, clicked3, *options, command=rotorSelection)
+rotor3.place(relx=0.7, rely=0.16, relwidth=0.1, relheight=0.1)
 
-letterX = tk.Button(keyboardFrame, text='X', borderwidth=2, bg='#808080')
-letterX.place(relx=0.28, rely=0.62, relwidth=0.07, relheight=0.17)
+clicked4 = StringVar()
+clicked5 = StringVar()
+clicked6 = StringVar()
 
-letterC = tk.Button(keyboardFrame, text='C', borderwidth=2, bg='#808080')
-letterC.place(relx=0.36, rely=0.62, relwidth=0.07, relheight=0.17)
+rotor1Letter = OptionMenu(rotorFrame, clicked4, *alphabet, command=rotorSelection)
+rotor1Letter.place(relx=0.3, rely=0.46, relwidth=0.1, relheight=0.1)
+rotor2Letter = OptionMenu(rotorFrame, clicked5, *alphabet, command=rotorSelection)
+rotor2Letter.place(relx=0.5, rely=0.46, relwidth=0.1, relheight=0.1)
+rotor3Letter = OptionMenu(rotorFrame, clicked6, *alphabet, command=rotorSelection)
+rotor3Letter.place(relx=0.7, rely=0.46, relwidth=0.1, relheight=0.1)
 
-letterV = tk.Button(keyboardFrame, text='V', borderwidth=2, bg='#808080')
-letterV.place(relx=0.44, rely=0.62, relwidth=0.07, relheight=0.17)
+clicked7 = StringVar()
+clicked8 = StringVar()
+clicked9 = StringVar()
 
-letterB = tk.Button(keyboardFrame, text='B', borderwidth=2, bg='#808080')
-letterB.place(relx=0.52, rely=0.62, relwidth=0.07, relheight=0.17)
-
-letterN = tk.Button(keyboardFrame, text='N', borderwidth=2, bg='#808080')
-letterN.place(relx=0.60, rely=0.62, relwidth=0.07, relheight=0.17)
-
-letterM = tk.Button(keyboardFrame, text='M', borderwidth=2, bg='#808080')
-letterM.place(relx=0.68, rely=0.62, relwidth=0.07, relheight=0.17)
-
+rotor1RingSetting = OptionMenu(rotorFrame, clicked7, *alphabet, command=rotorSelection)
+rotor1RingSetting.place(relx=0.3, rely=0.76, relwidth=0.1, relheight=0.1)
+rotor2RingSetting = OptionMenu(rotorFrame, clicked8, *alphabet, command=rotorSelection)
+rotor2RingSetting.place(relx=0.5, rely=0.76, relwidth=0.1, relheight=0.1)
+rotor3RingSetting = OptionMenu(rotorFrame, clicked9, *alphabet, command=rotorSelection)
+rotor3RingSetting.place(relx=0.7, rely=0.76, relwidth=0.1, relheight=0.1)
 
 
+inputTextLabel = Label(root, text="ENCRYPTED/DECRYPTED MESSAGE")
+inputTextLabel.pack(pady=20)
 
-
-
+submit_button = Button(root, text="Submit", command=encrypt)
+submit_button.pack(pady=20)
 
 
 def close(event):
     root.withdraw() # if you want to bring it back
     sys.exit() # if you want to exit the entire thing
 
-root.bind('<Escape>', close)
 
-root.mainloop() #This is how we run the GUI
+root.bind('<Escape>', close)
+root.mainloop()
