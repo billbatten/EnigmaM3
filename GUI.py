@@ -18,7 +18,6 @@ def encrypt():
     rotorRingSetting = ringSetting()
     encryptedMessage = Enigma.encrypt(inputMessage, rotorString, rotorStartPos, "AC DS", reflector, rotorRingSetting)
     inputTextLabel.config(text=encryptedMessage)
-    print(rotorStartPos)
     return encryptedMessage
 
 def rotorSelection(self):
@@ -61,9 +60,10 @@ outterFrame.place(relx=0.025, rely=0.0, relwidth=0.45, relheight=1)
 label = Label(outterFrame, image=woodBackround)
 label.place(x=0, y=0, relwidth=1, relheight=1)
 
+#ROTOR FRAME SECTION
+#Any widgets linked to the rotors are placed in this section
 rotorFrame = tk.Frame(root, bg='gray')
 rotorFrame.place(relx=0.05, rely=0.1, relwidth=0.4, relheight=0.35)
-
 label = Label(rotorFrame, image=blackBackround)
 label.place(x=0, y=0, relwidth=1, relheight=1)
 
@@ -92,8 +92,25 @@ rotor3RingSetting.place(relx=0.7, rely=0.7, relwidth=0.1, relheight=0.05)
 
 title = Label(outterFrame, text="ENIGMA M3", bg='gray', font=("Times", 40))
 title.place(relx=0.25, rely=0.025, relwidth=0.45, relheight=0.05)
-plain_text = Entry(root)
-plain_text.pack(pady=20)
+
+paperFrame = tk.Frame(root)
+paperFrame.place(relx=0.525, rely=0.0, relwidth=0.45, relheight=1)
+
+label = Label(paperFrame, image=paperBackround)
+label.place(x=0, y=0, relwidth=1, relheight=1)
+
+label = Label(paperFrame, text="Enter Message to Encrypt/Decrypt: ")
+label.pack(pady=10)
+plain_text = Entry(paperFrame)
+plain_text.pack(pady=0)
+
+label = Label(paperFrame, text="Encrypted/Decrypted Message: ")
+label.pack(pady=10)
+inputTextLabel = Label(paperFrame)
+inputTextLabel.pack(pady=20)
+
+submit_button = Button(paperFrame, text="Submit", command=encrypt)
+submit_button.pack(pady=20)
 
 options = ["1", "2", "3", "4", "5"]
 alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
@@ -102,7 +119,6 @@ clicked1 = StringVar()
 clicked2 = StringVar()
 clicked3 = StringVar()
 clickedRef = StringVar()
-
 
 #REFLECTOR DROPDOWN
 rotorRef = OptionMenu(rotorFrame, clickedRef, "B", "C", command=rotorSelection)
@@ -139,11 +155,10 @@ rotor3RingSetting = OptionMenu(rotorFrame, clicked9, *alphabet, command=rotorSel
 rotor3RingSetting.place(relx=0.7, rely=0.76, relwidth=0.1, relheight=0.1)
 
 
-inputTextLabel = Label(root, text="ENCRYPTED/DECRYPTED MESSAGE")
-inputTextLabel.pack(pady=20)
-
-submit_button = Button(root, text="Submit", command=encrypt)
-submit_button.pack(pady=20)
+plugboardFrame = tk.Frame(root, bg='gray')
+plugboardFrame.place(relx=0.05, rely=0.6, relwidth=0.4, relheight=0.35)
+label = Label(plugboardFrame, image=blackBackround)
+label.place(x=0, y=0, relwidth=1, relheight=1)
 
 
 def close(event):
