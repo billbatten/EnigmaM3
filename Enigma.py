@@ -85,8 +85,14 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, refl
 
     #Pass message through the plugboard
     #Put user plugboard settings into a list then into a dictionary
-    plugboardSettingsList = plugboardSettings.upper().split()
+    # plugboardSettingsList = plugboardSettings.upper().split()
+    plugboardSettingsList = plugboardSettings
     plugboardSettingsDict = dict(plugboardSettingsList)
+
+
+
+
+
 
     #Reverse the original dictionary and add it to a new dictionary
     reversedDict = {x: y for y, x in plugboardSettingsDict.items()}
@@ -259,7 +265,7 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, refl
 #plugboardSettings = input("Please list your plugboard pairs settings separated by a space. E.g A=B,C=D,E=F - ")
 
 #USER INPUTS
-# inputMessage = "IZHAVQVOV"
+# inputMessage = "IZ"
 # #inputMessage = printtext()
 # rotorSelection = "253"
 # rotorStartPos = "BZT"
