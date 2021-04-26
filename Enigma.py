@@ -153,15 +153,15 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, refl
 
         #Loops through each letter in inputMessage and swaps it with the plugboard allocated letter
 
-
+        encryptedLetterList = []
         print("---------------START---------------\n")
         print("BEFORE ENTERING PLUGBOARD ", encryptedLetter)
-
+        encryptedLetterList.append(encryptedLetter)
         if encryptedLetter not in updatedPlugboardSettingsDict:
             encryptedLetter = encryptedLetter
         else:
             encryptedLetter = updatedPlugboardSettingsDict[encryptedLetter]
-
+        encryptedLetterList.append(encryptedLetter)
 
         print("AFTER ENTERING PLUGBOARD ", encryptedLetter, "\n")
 
@@ -181,7 +181,8 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, refl
         index = alphabet.index(encryptedLetter)
         encryptedLetter = alphabetCShift[index % 26]
         print("Rotor C entry point = ", encryptedLetter)
-
+        encryptedLetterList.append(encryptedLetter)
+        print(encryptedLetterList)
         #ROTOR C ENCRYPTION
         index = alphabetCShift.index(encryptedLetter)
         scrambledLetter = rotorCConfig[(index + numberOfCTurns) % 26]
