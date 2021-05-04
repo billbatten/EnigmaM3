@@ -19,7 +19,7 @@ def encrypt():
     rotorRingSetting = ringSetting()
     plugboardSettings = x1
     encryptedMessage = Enigma.encrypt(inputMessage, rotorString, rotorStartPos, plugboardSettings, reflector, rotorRingSetting)
-    inputTextLabel.config(text=encryptedMessage)
+    outputTextLabel.config(text=encryptedMessage)
     plugboardOutput.config(text=x1)
     return encryptedMessage
 
@@ -30,8 +30,6 @@ def rotorSelection(self):
     rotor3 = str(clicked3.get())
     rotorPos = (rotor1+rotor2+rotor3)
     reflector = str(clickedRef.get())
-    # if rotor1 == rotor2 or rotor2 == rotor3 or rotor1 == rotor3:
-    #     messagebox.showerror("Input Error!", " rotor")
     if rotor1 == rotor2:
         messagebox.showerror("Input Error!", "Rotor " + rotor1 + " is already being used. Please select another rotor")
         clicked1.set("Rotor 1")
@@ -73,67 +71,71 @@ paperBackround = ImageTk.PhotoImage(Image.open("paper.jfif"))
 
 #FRAME CREATION
 outterFrame = tk.Frame(root)
-outterFrame.place(relx=0.025, rely=0.0, relwidth=0.45, relheight=1)
+outterFrame.place(relx=0.275, rely=0.0, relwidth=0.45, relheight=1)
 label = Label(outterFrame, image=paperBackround)
 label.place(x=0, y=0, relwidth=1, relheight=1)
-title = Label(outterFrame, text="ENIGMA M3", bg='black', fg='white', font=('Times', 20))
-title.place(relx=0.25, rely=0.015, relwidth=0.45, relheight=0.05)
+title = Label(outterFrame, text="ENIGMA M3", bg='black', fg='white', font=('Courier', 40))
+title.pack(pady=40)
 
+#ROTOR FRAME LABELS
 rotorFrame = tk.Frame(root, bg='gray')
-rotorFrame.place(relx=0.045, rely=0.07, relwidth=0.41, relheight=0.3)
+rotorFrame.place(relx=0.295, rely=0.11, relwidth=0.41, relheight=0.3)
 label = Label(rotorFrame, image=blackBackround)
 label.place(x=0, y=0, relwidth=1, relheight=1)
+rotorSettingsLabel = Label(rotorFrame, text="ROTOR SETTINGS", bg='SteelBlue1', font=('Courier', 20))
+rotorSettingsLabel.pack(pady=20)
 
+
+#PLUGBOARD FRAME LABELS
 plugboardFrame = tk.Frame(root, bg='gray')
-plugboardFrame.place(relx=0.045, rely=0.38, relwidth=0.41, relheight=0.25)
+plugboardFrame.place(relx=0.295, rely=0.42, relwidth=0.41, relheight=0.3)
 plugboardLabel = Label(plugboardFrame, image=blackBackround)
 plugboardLabel.place(x=0, y=0, relwidth=1, relheight=1)
+plugboardTitle = Label(plugboardFrame, text="PLUGBOARD SETTINGS", bg='SteelBlue1', font=('Courier', 20))
+plugboardTitle.pack(pady=15)
 plugboardOutput = Label(plugboardFrame)
-plugboardOutput.place(relx=0.3, rely=0.6, relwidth=0.35, relheight=0.15)
+plugboardOutput.place(relx=0.325, rely=0.7, relwidth=0.35, relheight=0.1)
 
+#OUTPUT FRAME LABELS
 finalFrame = Frame(outterFrame)
-finalFrame.place(relx=0.045, rely=0.7, relwidth=0.91, relheight=0.25)
+finalFrame.place(relx=0.045, rely=0.73, relwidth=0.91, relheight=0.25)
 label = Label(finalFrame, image=blackBackround)
 label.place(x=0, y=0, relwidth=1, relheight=1)
+inputTextLabel = Label(finalFrame, text="Input message:", bg='gray', font=20)
+inputTextLabel.place(relx=0.05, rely=0.15, relwidth=0.3, relheight=0.2)
+plain_text = Entry(finalFrame, justify='center', font=20)
+plain_text.place(relx=0.05, rely=0.4, relwidth=0.3, relheight=0.2)
+inputTextLabel = Label(finalFrame, text="Output message:", bg='gray', font=20)
+inputTextLabel.place(relx=0.65, rely=0.15, relwidth=0.3, relheight=0.2)
+outputTextLabel = Label(finalFrame)
+outputTextLabel.place(relx=0.65, rely=0.4, relwidth=0.3, relheight=0.2)
 
-outputFrame = tk.Frame(root, bg='gray')
-outputFrame.place(relx=0.5, rely=0.0, relwidth=0.45, relheight=1)
-outputFrameImage = Label(outputFrame, image=paperBackround)
-outputFrameImage.place(x=0, y=0, relwidth=1, relheight=1)
-newLabel = Label(outputFrame)
-newLabel.pack(pady=20)
-
-
-plain_text = Entry(finalFrame)
-plain_text.pack(pady=20)
-inputTextLabel = Label(finalFrame, text="ENCRYPTED/DECRYPTED MESSAGE")
-inputTextLabel.pack(pady=20)
-submit_button = Button(finalFrame, text="Submit", command=encrypt)
-submit_button.pack(pady=20)
+submit_button = Button(finalFrame, text="Encrypt / Decrypt", font=20, command=encrypt)
+submit_button.pack(pady=100)
 
 
 reflectorLabel = Label(rotorFrame, text="Reflector" ,bg="white")
-reflectorLabel.place(relx=0.05, rely=0.1, relwidth=0.15, relheight=0.05)
+reflectorLabel.place(relx=0.05, rely=0.26, relwidth=0.15, relheight=0.05)
 rotor1Label = Label(rotorFrame, text="Rotor 1" ,bg="white")
-rotor1Label.place(relx=0.3, rely=0.1, relwidth=0.1, relheight=0.05)
+rotor1Label.place(relx=0.3, rely=0.26, relwidth=0.1, relheight=0.05)
 rotor2Label = Label(rotorFrame, text="Rotor 2" ,bg="white")
-rotor2Label.place(relx=0.5, rely=0.1, relwidth=0.1, relheight=0.05)
+rotor2Label.place(relx=0.5, rely=0.26, relwidth=0.1, relheight=0.05)
 rotor3Label = Label(rotorFrame, text="Rotor 3" ,bg="white")
-rotor3Label.place(relx=0.7, rely=0.1, relwidth=0.1, relheight=0.05)
+rotor3Label.place(relx=0.7, rely=0.26, relwidth=0.1, relheight=0.05)
 
 rotor1LetterLabel = Label(rotorFrame, text="Start Letter" ,bg="white")
-rotor1LetterLabel.place(relx=0.3, rely=0.4, relwidth=0.1, relheight=0.05)
+rotor1LetterLabel.place(relx=0.3, rely=0.5, relwidth=0.1, relheight=0.05)
 rotor2LetterLabel = Label(rotorFrame, text="Start Letter" ,bg="white")
-rotor2LetterLabel.place(relx=0.5, rely=0.4, relwidth=0.1, relheight=0.05)
+rotor2LetterLabel.place(relx=0.5, rely=0.5, relwidth=0.1, relheight=0.05)
 rotor3LetterLabel = Label(rotorFrame, text="Start Letter" ,bg="white")
-rotor3LetterLabel.place(relx=0.7, rely=0.4, relwidth=0.1, relheight=0.05)
+rotor3LetterLabel.place(relx=0.7, rely=0.5, relwidth=0.1, relheight=0.05)
 
 rotor1RingSetting = Label(rotorFrame, text="Ring Setting" ,bg="white")
-rotor1RingSetting.place(relx=0.3, rely=0.7, relwidth=0.1, relheight=0.05)
+rotor1RingSetting.place(relx=0.3, rely=0.74, relwidth=0.1, relheight=0.05)
 rotor2RingSetting = Label(rotorFrame, text="Ring Setting" ,bg="white")
-rotor2RingSetting.place(relx=0.5, rely=0.7, relwidth=0.1, relheight=0.05)
+rotor2RingSetting.place(relx=0.5, rely=0.74, relwidth=0.1, relheight=0.05)
 rotor3RingSetting = Label(rotorFrame, text="Ring Setting" ,bg="white")
-rotor3RingSetting.place(relx=0.7, rely=0.7, relwidth=0.1, relheight=0.05)
+rotor3RingSetting.place(relx=0.7, rely=0.74, relwidth=0.1, relheight=0.05)
 
 options = ["1", "2", "3", "4", "5"]
 alphabet = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
@@ -149,38 +151,38 @@ clickedRef = StringVar()
 
 #REFLECTOR DROPDOWN
 rotorRef = OptionMenu(rotorFrame, clickedRef, "B", "C", command=rotorSelection)
-rotorRef.place(relx=0.05, rely=0.16, relwidth=0.15, relheight=0.1)
+rotorRef.place(relx=0.05, rely=0.32, relwidth=0.15, relheight=0.1)
 
 #ROTOR DROPDOWNS
 rotor1 = OptionMenu(rotorFrame, clicked1, "Rotor 1", *options, command=rotorSelection)
-rotor1.place(relx=0.3, rely=0.16, relwidth=0.1, relheight=0.1)
+rotor1.place(relx=0.3, rely=0.32, relwidth=0.1, relheight=0.1)
 
 rotor2 = OptionMenu(rotorFrame, clicked2, *options, command=rotorSelection)
-rotor2.place(relx=0.5, rely=0.16, relwidth=0.1, relheight=0.1)
+rotor2.place(relx=0.5, rely=0.32, relwidth=0.1, relheight=0.1)
 rotor3 = OptionMenu(rotorFrame, clicked3, *options, command=rotorSelection)
-rotor3.place(relx=0.7, rely=0.16, relwidth=0.1, relheight=0.1)
+rotor3.place(relx=0.7, rely=0.32, relwidth=0.1, relheight=0.1)
 
 clicked4 = StringVar()
 clicked5 = StringVar()
 clicked6 = StringVar()
 
 rotor1Letter = OptionMenu(rotorFrame, clicked4, *alphabet, command=rotorSelection)
-rotor1Letter.place(relx=0.3, rely=0.46, relwidth=0.1, relheight=0.1)
+rotor1Letter.place(relx=0.3, rely=0.56, relwidth=0.1, relheight=0.1)
 rotor2Letter = OptionMenu(rotorFrame, clicked5, *alphabet, command=rotorSelection)
-rotor2Letter.place(relx=0.5, rely=0.46, relwidth=0.1, relheight=0.1)
+rotor2Letter.place(relx=0.5, rely=0.56, relwidth=0.1, relheight=0.1)
 rotor3Letter = OptionMenu(rotorFrame, clicked6, *alphabet, command=rotorSelection)
-rotor3Letter.place(relx=0.7, rely=0.46, relwidth=0.1, relheight=0.1)
+rotor3Letter.place(relx=0.7, rely=0.56, relwidth=0.1, relheight=0.1)
 
 clicked7 = StringVar()
 clicked8 = StringVar()
 clicked9 = StringVar()
 
 rotor1RingSetting = OptionMenu(rotorFrame, clicked7, *alphabet, command=rotorSelection)
-rotor1RingSetting.place(relx=0.3, rely=0.76, relwidth=0.1, relheight=0.1)
+rotor1RingSetting.place(relx=0.3, rely=0.8, relwidth=0.1, relheight=0.1)
 rotor2RingSetting = OptionMenu(rotorFrame, clicked8, *alphabet, command=rotorSelection)
-rotor2RingSetting.place(relx=0.5, rely=0.76, relwidth=0.1, relheight=0.1)
+rotor2RingSetting.place(relx=0.5, rely=0.8, relwidth=0.1, relheight=0.1)
 rotor3RingSetting = OptionMenu(rotorFrame, clicked9, *alphabet, command=rotorSelection)
-rotor3RingSetting.place(relx=0.7, rely=0.76, relwidth=0.1, relheight=0.1)
+rotor3RingSetting.place(relx=0.7, rely=0.8, relwidth=0.1, relheight=0.1)
 
 answer_list = []
 x1 = ""
@@ -232,6 +234,8 @@ def button_click(b, letter):
         b.configure(bg='DarkOliveGreen2')
     elif len(answer_list) > 18 and len(answer_list) <= 20:
         b.configure(bg='black')
+    elif len(answer_list) > 20:
+        b.configure(state=tk.NORMAL, bg='white')
 
     if len(x1) > 10 and len(answer_list) > 20:
         messagebox.showerror("Input Error!", "Max plugboard pairs = 10." )
@@ -271,38 +275,38 @@ buttonY = Button(plugboardFrame, text='Y', font=("Helvetica", 15), height=1, wid
 buttonZ = Button(plugboardFrame, text='Z', font=("Helvetica", 15), height=1, width=3, command=lambda: button_click(buttonZ, "Z"))
 
 #TOP PLUGBOARD ROW
-buttonQ.place(relx=0.05, rely=0.05, relwidth=0.07, relheight=0.1)
-buttonW.place(relx=0.14, rely=0.05, relwidth=0.07, relheight=0.1)
-buttonE.place(relx=0.23, rely=0.05, relwidth=0.07, relheight=0.1)
-buttonR.place(relx=0.32, rely=0.05, relwidth=0.07, relheight=0.1)
-buttonT.place(relx=0.41, rely=0.05, relwidth=0.07, relheight=0.1)
-buttonY.place(relx=0.50, rely=0.05, relwidth=0.07, relheight=0.1)
-buttonU.place(relx=0.59, rely=0.05, relwidth=0.07, relheight=0.1)
-buttonI.place(relx=0.68, rely=0.05, relwidth=0.07, relheight=0.1)
-buttonO.place(relx=0.77, rely=0.05, relwidth=0.07, relheight=0.1)
-buttonP.place(relx=0.86, rely=0.05, relwidth=0.07, relheight=0.1)
+buttonQ.place(relx=0.05, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonW.place(relx=0.14, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonE.place(relx=0.23, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonR.place(relx=0.32, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonT.place(relx=0.41, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonY.place(relx=0.50, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonU.place(relx=0.59, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonI.place(relx=0.68, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonO.place(relx=0.77, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonP.place(relx=0.86, rely=0.2, relwidth=0.07, relheight=0.1)
 
 
 #MIDDLE PLUGBOARD ROW
-buttonA.place(relx=0.09, rely=0.2, relwidth=0.07, relheight=0.1)
-buttonS.place(relx=0.18, rely=0.2, relwidth=0.07, relheight=0.1)
-buttonD.place(relx=0.27, rely=0.2, relwidth=0.07, relheight=0.1)
-buttonF.place(relx=0.36, rely=0.2, relwidth=0.07, relheight=0.1)
-buttonG.place(relx=0.45, rely=0.2, relwidth=0.07, relheight=0.1)
-buttonH.place(relx=0.54, rely=0.2, relwidth=0.07, relheight=0.1)
-buttonJ.place(relx=0.63, rely=0.2, relwidth=0.07, relheight=0.1)
-buttonK.place(relx=0.72, rely=0.2, relwidth=0.07, relheight=0.1)
-buttonL.place(relx=0.81, rely=0.2, relwidth=0.07, relheight=0.1)
+buttonA.place(relx=0.09, rely=0.35, relwidth=0.07, relheight=0.1)
+buttonS.place(relx=0.18, rely=0.35, relwidth=0.07, relheight=0.1)
+buttonD.place(relx=0.27, rely=0.35, relwidth=0.07, relheight=0.1)
+buttonF.place(relx=0.36, rely=0.35, relwidth=0.07, relheight=0.1)
+buttonG.place(relx=0.45, rely=0.35, relwidth=0.07, relheight=0.1)
+buttonH.place(relx=0.54, rely=0.35, relwidth=0.07, relheight=0.1)
+buttonJ.place(relx=0.63, rely=0.35, relwidth=0.07, relheight=0.1)
+buttonK.place(relx=0.72, rely=0.35, relwidth=0.07, relheight=0.1)
+buttonL.place(relx=0.81, rely=0.35, relwidth=0.07, relheight=0.1)
 
 
 #BOTTOM PLUGBOARD ROW
-buttonZ.place(relx=0.14, rely=0.35, relwidth=0.07, relheight=0.1)
-buttonX.place(relx=0.23, rely=0.35, relwidth=0.07, relheight=0.1)
-buttonC.place(relx=0.32, rely=0.35, relwidth=0.07, relheight=0.1)
-buttonV.place(relx=0.41, rely=0.35, relwidth=0.07, relheight=0.1)
-buttonB.place(relx=0.50, rely=0.35, relwidth=0.07, relheight=0.1)
-buttonN.place(relx=0.59, rely=0.35, relwidth=0.07, relheight=0.1)
-buttonM.place(relx=0.68, rely=0.35, relwidth=0.07, relheight=0.1)
+buttonZ.place(relx=0.14, rely=0.5, relwidth=0.07, relheight=0.1)
+buttonX.place(relx=0.23, rely=0.5, relwidth=0.07, relheight=0.1)
+buttonC.place(relx=0.32, rely=0.5, relwidth=0.07, relheight=0.1)
+buttonV.place(relx=0.41, rely=0.5, relwidth=0.07, relheight=0.1)
+buttonB.place(relx=0.50, rely=0.5, relwidth=0.07, relheight=0.1)
+buttonN.place(relx=0.59, rely=0.5, relwidth=0.07, relheight=0.1)
+buttonM.place(relx=0.68, rely=0.5, relwidth=0.07, relheight=0.1)
 
 def clearPlugboard():
     buttonA.configure(state=tk.NORMAL, bg='white')
@@ -331,7 +335,8 @@ def clearPlugboard():
     buttonX.configure(state=tk.NORMAL, bg='white')
     buttonY.configure(state=tk.NORMAL, bg='white')
     buttonZ.configure(state=tk.NORMAL, bg='white')
-
+    answer_list.clear()
+    x1.clear()
     plugboardOutput.config(text="")
 
 def close(event):
@@ -339,7 +344,7 @@ def close(event):
     sys.exit()
 
 clearButton = Button(plugboardFrame, text="Clear selections", font=20, command=clearPlugboard)
-clearButton.place(relx=0.3, rely=0.8, relwidth=0.35, relheight=0.15)
+clearButton.place(relx=0.325, rely=0.85, relwidth=0.35, relheight=0.1)
 
 root.bind('<Escape>', close)
 root.mainloop()
