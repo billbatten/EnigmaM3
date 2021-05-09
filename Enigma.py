@@ -1,3 +1,5 @@
+import sys
+
 def alphabetRotation(startLetter):
     #THIS FUNCTION OFFSETS THE ALPHABET TO MATCH THE THE STARTING LETTER
 
@@ -30,8 +32,12 @@ def rotorConfigurationShift(startLetter, rotorConfiguration, offset):
 def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, reflectorSelection, ringSetting):
     removeInputSpaces = inputMessage.replace(" ", "")
     inputMessage = removeInputSpaces
-    #English alphabet
+    if inputMessage.isalpha():
+        inputMessage = inputMessage
+    else:
+        inputMessage = ""
 
+    #English alphabet
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     #Retrieves the wiring configuration for the user selected rotor
@@ -163,8 +169,8 @@ def encrypt(inputMessage, rotorSelection, rotorStartPos, plugboardSettings, refl
         print("Rotor C entry point = ", encryptedLetter)
 
         #ROTOR C ENCRYPTION
-        index = alphabetCShift.index(encryptedLetter)
-        scrambledLetter = rotorCConfig[(index + numberOfCTurns) % 26]
+        index = alphabetCShift.index(encryptedLetter)   #index of encrypted letter in shifted alphabet
+        scrambledLetter = rotorCConfig[(index + numberOfCTurns) % 26] #take into account the turn of the rotor
         print("Rotor C encrypted letter = ", scrambledLetter, "\n")
         index = alphabetCShift.index(scrambledLetter)
         encryptedLetter = alphabetBShift[index % 26]

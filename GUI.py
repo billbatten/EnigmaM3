@@ -12,6 +12,11 @@ root.configure(bg='black')
 
 def encrypt():
     inputMessage = plain_text.get()
+    if inputMessage.isalpha():
+        inputMessage=inputMessage
+    else:
+        messagebox.showerror("INVALID INPUT!", "Letters only")
+
     var1 = rotorSelection(self=True)
     rotorString = var1[0]
     reflector = var1[1]
