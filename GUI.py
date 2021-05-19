@@ -1,4 +1,4 @@
-import Enigma
+import Enigma as eng
 import tkinter as tk
 from tkinter import *
 import sys
@@ -13,7 +13,7 @@ root.configure(bg='black')
 def encrypt():
     inputMessage = plain_text.get()
     if inputMessage.isalpha():
-        inputMessage=inputMessage
+        inputMessage = inputMessage
     else:
         messagebox.showerror("INVALID INPUT!", "Letters only")
 
@@ -23,7 +23,7 @@ def encrypt():
     rotorStartPos = startLetter()
     rotorRingSetting = ringSetting()
     plugboardSettings = x1
-    encryptedMessage = Enigma.encrypt(inputMessage, rotorString, rotorStartPos, plugboardSettings, reflector, rotorRingSetting)
+    encryptedMessage = eng.Enigma().encrypt(inputMessage, rotorString, rotorStartPos, plugboardSettings, reflector, rotorRingSetting)
     outputTextLabel.config(text=encryptedMessage)
     plugboardOutput.config(text=x1)
     return encryptedMessage
