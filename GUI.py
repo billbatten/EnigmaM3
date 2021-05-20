@@ -112,7 +112,7 @@ plain_text = Entry(finalFrame, justify='center', font=20)
 plain_text.place(relx=0.05, rely=0.4, relwidth=0.3, relheight=0.2)
 inputTextLabel = Label(finalFrame, text="Output message:", bg='gray', font=20)
 inputTextLabel.place(relx=0.65, rely=0.15, relwidth=0.3, relheight=0.2)
-outputTextLabel = Label(finalFrame)
+outputTextLabel = Label(finalFrame, font=18)
 outputTextLabel.place(relx=0.65, rely=0.4, relwidth=0.3, relheight=0.2)
 
 submit_button = Button(finalFrame, text="Encrypt / Decrypt", font=20, command=encrypt)

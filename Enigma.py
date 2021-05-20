@@ -1,6 +1,3 @@
-import sys
-
-
 class Enigma:
 
     def alphabetRotation(self, startLetter):
@@ -46,9 +43,14 @@ class Enigma:
         alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
         # Retrieves the wiring configuration for the user selected rotor
-        rotorConfigDict = {"1": "EKMFLGDQVZNTOWYHXUSPAIBRCJ", "2": "AJDKSIRUXBLHWTMCQGZNPYFVOE",
+
+
+        rotorConfigDict = {"1": "EKMFLGDQVZNTOWYHXUSPAIBRCJ",
+                           "2": "AJDKSIRUXBLHWTMCQGZNPYFVOE",
                            "3": "BDFHJLCPRTXVZNYEIWGAKMUSQO",
-                           "4": "ESOVPZJAYQUIRHXLNFTGKDCMWB", "5": "VZBRGITYUPSDNHLXAWMJQOFECK"}
+                           "4": "ESOVPZJAYQUIRHXLNFTGKDCMWB",
+                           "5": "VZBRGITYUPSDNHLXAWMJQOFECK"}
+
 
         UKWB = {"A": "Y", "Y": "A", "B": "R", "R": "B", "C": "U", "U": "C", "D": "H", "H": "D", "E": "Q", "Q": "E",
                 "F": "S", "S": "F",
@@ -174,8 +176,8 @@ class Enigma:
             print("Rotor C entry point = ", encryptedLetter)
 
             # ROTOR C ENCRYPTION
-            index = alphabetCShift.index(encryptedLetter)  # index of encrypted letter in shifted alphabet
-            scrambledLetter = rotorCConfig[(index + numberOfCTurns) % 26]  # take into account the turn of the rotor
+            index = alphabetCShift.index(encryptedLetter)                            # index of encrypted letter in shifted alphabet
+            scrambledLetter = rotorCConfig[(index + numberOfCTurns) % 26]                   # take into account the turn of the rotor
             print("Rotor C encrypted letter = ", scrambledLetter, "\n")
             index = alphabetCShift.index(scrambledLetter)
             encryptedLetter = alphabetBShift[index % 26]
